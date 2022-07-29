@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 
 
 import Posts from './components/Posts/Posts';
@@ -7,10 +8,12 @@ import memories from './images/memories.png';
 
 const App = () => {
     return (
-        <>  
+        <div className='App'>  
+            <div className='blur' style={{top: '-18%', right: '0'}} ></div>
+            <div className='blur' style={{top: '36%', left: '-8rem'}} ></div>
             <Form />
             <Posts />
-        </>
+        </div>
         
     )
 }
