@@ -26,6 +26,8 @@
   position: absolute;
   bottom: -3rem;
   box-shadow: var(--profileShadow);
+  background-size: cover;
+  background-position: top center;
 }
 
 .ProfileName{
