@@ -1,6 +1,12 @@
 .Home {
   position: relative;
   display: grid;
-  grid-template-columns: 18rem auto 20rem ;
+  grid-template-columns: 25% auto 25% ;
   gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .Home {
+    grid-template-columns: 100%;
+  }
 }
