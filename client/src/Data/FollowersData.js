@@ -1,7 +1,7 @@
-import img1 from "../../images/stanLee.jpg";
-import img2 from "../../images/hulk.jpg";
-import img3 from "../../images/thor.jpg";
-import img4 from "../../images/natasha.jpg";
+import img1 from "../images/stanLee.jpg";
+import img2 from "../images/hulk.jpg";
+import img3 from "../images/thor.jpg";
+import img4 from "../images/natasha.jpg";
 
 export const Followers = [
   {name: "Stan Lee", username: "StanLee", img: img1},

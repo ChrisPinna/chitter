@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Home from './components/Home/Home'
+import Home from './Pages/Home/Home'
 
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
