@@ -13,7 +13,7 @@ const Post = ({data}) => {
             <span> {data.desc}</span>
         </div>
         <img src={data.img} alt="" />
-        {data.likes} likes
+          <span style={{ color: "var(--gray)", fontSize: "12px"}}>{data.likes} likes</span>
         <div className="postReactions">
             <img src={ data.liked?Like: NotLike } alt="" />
             <img src={ Comment } alt="" />
