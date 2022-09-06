@@ -6,6 +6,7 @@ import Profile from './Pages/Profile/Profile'
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
 import memories from './images/memories.png';
+import Authentication from './Pages/Authentication/Authentication';
 
 const App = () => {
     return (
@@ -14,6 +15,8 @@ const App = () => {
             <div className='blur' style={{top: '36%', left: '-8rem'}} ></div>
             {/* <Home /> */}
             <Profile/>
+            {/* <Authentication/> */}
+
         </div>
         
     )
