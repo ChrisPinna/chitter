@@ -5,13 +5,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 // import postRoutes from './routes/posts.js';
-import authenticationRoutes from './routes/authentication.js'
+import authenticationRoutes from './routes/authenticationRoute.js'
 
 //Routes
 
 const app = express();
 
-app.use('/authentication', authenticationRoutes)
+
 // app.use('/posts', postRoutes);
 
 // Middleware
@@ -29,3 +29,4 @@ mongoose
 
 
 // usage of routes
+app.use('/authentication', authenticationRoutes)
