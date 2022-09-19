@@ -59,10 +59,10 @@ export const deleteUser = async (req, res) => {
 
         try {
 
-            await UserModel.findByIdAndDelete(id);
+            await UserModel.findByIdAndDelete(id, req.body, {new: true});
             res.status(200).json("User deleted successfully")
         } catch (error) {
-            res.status(500).json(error)
+            res.status(500).json(error);
         }
 
     } else {
@@ -71,3 +71,58 @@ export const deleteUser = async (req, res) => {
     };
 
 };
+
+// Follow a User
+export const followUser = async (req, res) => {
+    const id = req.params.id;
+    const {currentUserId} = req.body;
+
+    if (currentUserId === id){
+        res.status(403).json("Action forbidden, you cannot follow yourself");
+    } else {
+        try {
+            const currentUser = await UserModel.findById(currentUserId);
+            const targetUser = await UserModel.findById(id);
+
+            if (!targetUser.followers.includes(currentUserId)) {
+                await targetUser.updateOne({$push : {followers: currentUserId}});
+                await currentUser.updateOne({$push : {following: id}});
+                res.status(200).json("User followed!")
+            } else {
+                res.status(403).json("Action forbidden, you are already following this user")
+            }
+
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+    
+};
+
+// UnFollow a User
+export const unFollowUser = async (req, res) => {
+    const id = req.params.id;
+    const {currentUserId} = req.body;
+
+    if (currentUserId === id){
+        res.status(403).json("Action forbidden, you cannot unfollow yourself");
+    } else {
+        try {
+            const currentUser = await UserModel.findById(currentUserId);
+            const targetUser = await UserModel.findById(id);
+
+            if (targetUser.followers.includes(currentUserId)) {
+                await targetUser.updateOne({$pull : {followers: currentUserId}});
+                await currentUser.updateOne({$pull : {following: id}});
+                res.status(200).json("You stoped following the user!")
+            } else {
+                res.status(403).json("Action forbidden, you are not following this user")
+            }
+
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+    
+};
+
