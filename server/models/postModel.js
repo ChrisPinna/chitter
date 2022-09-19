@@ -10,5 +10,5 @@ const PostSchema = mongoose.Schema(
     {timestamps: true}
 )
 
-const PostModel = mongoose.model("Users", PostSchema);
+const PostModel = mongoose.model("Posts", PostSchema);
 export default PostModel;
