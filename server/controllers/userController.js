@@ -45,7 +45,7 @@ export const updateUser = async (req, res) => {
         };
 
     } else {
-        res.status(403).json("Access Denied! No admin status detected");
+        res.status(403).json("Access Denied! No admin status detected, you can only update your own proifile");
     };
 
 };
@@ -67,7 +67,7 @@ export const deleteUser = async (req, res) => {
 
     } else {
 
-        res.status(500).json("Access Denied! No admin status detected")
+        res.status(500).json("Access Denied! No admin status detected, you can only delete your own proifile")
     };
 
 };
