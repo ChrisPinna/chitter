@@ -24,3 +24,40 @@ export const getPost = async (req, res) => {
         res.status(500).json(error);
     }
 }
+
+// Update a post 
+export const updatePost = async (req, res) => {
+    const postId = req.params.id;
+    const {userId} = req.body;
+
+    
+    try {
+        const post = await PostModel.findById(postId);
+        if (post.userId === userId) {
+            await post.updateOne( { $set : req.body } );
+            res.status(200).json("Post updated!");
+        } else {
+            res.status(403).json("Action forbidden, you can only update your own posts");
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+// Delete a Post 
+export const deletePost = async (req, res) => {
+    const postId = req.params.id;
+    const {userId} = req.body;
+
+    try {
+        const post = await PostModel.findById(postId);
+        if (post.userId === userId) {
+            await post.deleteOne();
+            res.status(200).json("Post deleted!");
+        } else {
+            res.status(403).json("Action forbidden, you can only delete your own posts");
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
