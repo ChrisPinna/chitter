@@ -9,7 +9,7 @@ export const createPost = async (req, res) => {
         await newPost.save();
         res.status(200).json(newPost);
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({message: error.message});
     }
 }
 
@@ -21,7 +21,7 @@ export const getPost = async (req, res) => {
         const post = await PostModel.findById(id);
         res.status(200).json(post);
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({message: error.message});
     }
 }
 
@@ -40,7 +40,7 @@ export const updatePost = async (req, res) => {
             res.status(403).json("Action forbidden, you can only update your own posts");
         }
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({message: error.message});
     }
 }
 
@@ -58,6 +58,31 @@ export const deletePost = async (req, res) => {
             res.status(403).json("Action forbidden, you can only delete your own posts");
         }
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({message: error.message});
+    }
+}
+
+// Like and Dislike a Post
+export const likePost = async (req, res) => {
+    const postId = req.params.id;
+    const {userId} = req.body;
+
+    try {
+        const post = await PostModel.findById(postId);
+
+        if(post) {
+            if(post.likes.includes(userId)) {
+                await post.updateOne({$pull : {likes : userId }});
+                res.status(200).json("Post unliked");
+            } else {
+                await post.updateOne( {$push : {likes : userId }});
+                res.status(200).json("Post liked");
+            }
+
+        } else {
+            res.status(403).json("Post does not exist")
+        }
+    } catch (error) {
+        res.status(500).json({message: error.message})
     }
 }

@@ -1,5 +1,6 @@
 import UserModel from "../models/userModel.js";
 import bcrypt from "bcrypt"
+import PostModel from "../models/postModel.js";
 
 // get a User
 export const getUser = async (req, res) => {
@@ -41,7 +42,7 @@ export const updateUser = async (req, res) => {
             res.status(200).json(user);  
 
         } catch (error) {
-            res.status(500).json(error)
+            res.status(500).json({message: error.message})
         };
 
     } else {
@@ -62,7 +63,7 @@ export const deleteUser = async (req, res) => {
             await UserModel.findByIdAndDelete(id, req.body, {new: true});
             res.status(200).json("User deleted successfully")
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json({message: error.message});
         }
 
     } else {
@@ -93,7 +94,7 @@ export const followUser = async (req, res) => {
             }
 
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json({message: error.message});
         }
     }
     
@@ -120,9 +121,9 @@ export const unFollowUser = async (req, res) => {
             }
 
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json({message: error.message});
         }
     }
     
 };
-
+ 
