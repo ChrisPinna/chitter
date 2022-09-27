@@ -116,8 +116,10 @@ export const unFollowUser = async (req, res) => {
                 await targetUser.updateOne({$pull : {followers: currentUserId}});
                 await currentUser.updateOne({$pull : {following: id}});
                 res.status(200).json("You stoped following the user!")
+
             } else {
                 res.status(403).json("Action forbidden, you are not following this user")
+                
             }
 
         } catch (error) {

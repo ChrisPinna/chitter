@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import PostModel from "../models/postModel.js";
+import UserModel from "../models/userModel.js";
 
 // Create new Post
 export const createPost = async (req, res) => {
@@ -86,3 +87,32 @@ export const likePost = async (req, res) => {
         res.status(500).json({message: error.message})
     }
 }
+
+// Get Timeline Posts
+ export const getTimelinePosts = async (req, res) => {
+    const userId = req.params.id;
+
+    const currentUserPosts = await PostModel.find({ userId: userId});
+
+    const currentUser = await UserModel.findById(userId);
+    const followedPosts = await PostModel.find({ userId: { $in:  currentUser.following}});
+    const timelinePosts = currentUserPosts.concat(followedPosts).sort(
+        (objA, objB) => objB.createdAt - objA.createdAt
+    );
+
+    // const sortedAsc = timelinePosts.sort(
+    //     (objA, objB) => Number(objB.createdAt) - Number(objA.createdAt),
+    //   );
+
+    try {
+        if (timelinePosts.length != 0) {
+            res.status(200).json(timelinePosts);
+
+        } else {
+            res.status(403).json("There are no Posts in your Timeline!")
+
+        }
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+ }
